@@ -1,4 +1,5 @@
 import socket
+import cv2
 
 TCP_IP = "127.0.0.1"
 TCP_PORT = 5005
@@ -16,3 +17,24 @@ while 1:
     if not data: break
 
 conn.close()
+
+cap = cv2.VideoCapture('accept.mp4')
+
+if(cap.isOpened() == False):
+    print("Error opening")
+
+while(cap.isOpened()):
+    ret, frame = cap.read()
+    if ret == True:
+
+        cv2.imshow('Frame', frame)
+
+        if cv2.waitKey(25) & 0xFF == ord('q'):
+            break
+
+    else:
+        break
+
+
+cap.release()
+cv2.destroyAllWindows()
